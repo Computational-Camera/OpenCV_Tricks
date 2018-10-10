@@ -49,6 +49,9 @@ Size S = Size(W,H);
 int ex = CV_FOURCC('X','V','I','D' );//static_cast<int>(cap.get(CV_CAP_PROP_FOURCC)); 'M','J','P','G' 
 outputVideo.open("test.avi", ex, cap.get(CV_CAP_PROP_FPS), S, true);
 
+//====Access Mat Efficiently======
+uchar*  img_ptr_temp = img.ptr<uchar>(line_num) + offset;
+
 //=== Convert Type============
 img.convertTo(img2, CV_8UC3);
 
