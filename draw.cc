@@ -16,6 +16,9 @@ polylines(  src, ppt, npt,
           2);     //lineType=8
 }
 
+//===Text===
+putText(img, str, imagePoint, FONT_HERSHEY_PLAIN, 2,  Scalar(0,0,255,255), 2);
+
 //=== Display ===
 namedWindow( "display_window", WINDOW_AUTOSIZE );
 imshow( "display_window", src);
