@@ -9,7 +9,7 @@ Point *pts = (const Point*) Mat(contour).data;
 warpPerspective ( src, dst, T, Size(w,h), INTER_LINEAR, BORDER_CONSTANT);
 
 //=== Points Transformation
-perspectiveTransform(p1, p2, T);//for points!
+perspectiveTransform(p1, p2, T);//for points! src p1, dst p2
 
 //=== Calculate distantce
 double cost = norm(Mat(p1), Mat(p2), NORM_L2);
