@@ -15,7 +15,7 @@ perspectiveTransform(p1, p2, T);//for points! src p1, dst p2
 double cost = norm(Mat(p1), Mat(p2), NORM_L2);
 
 //=== Homography matrix estimation ====
-findHomography( dst_pt, src_pt,RANSAC );
+findHomography( src_pt, dst_pt, RANSAC );
 
 //=== Perspective matrix estimation ====
 getPerspectiveTransform(const Point2f src[], const Point2f dst[])
