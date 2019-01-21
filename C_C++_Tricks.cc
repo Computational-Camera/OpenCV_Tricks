@@ -13,3 +13,9 @@ clock_gettime(CLOCK_MONOTONIC_RAW, &start);
 //------------------
 clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 uint64_t delta_us = (end.tv_nsec - start.tv_nsec) / 1000;
+
+//======Random Number========
+#include <time.h>
+srand((unsigned)time(NULL));
+float jitter = float(rand()%100)/100 -0.5 ; //RAND_MAX is a constant defined in <cstdlib>. -0.5 to 0.5
+
