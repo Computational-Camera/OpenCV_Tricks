@@ -10,7 +10,22 @@ image.at<Vec3b>(j,i)[0]  //Pixel
 uchar* data_ptr = image.ptr<uchar>(j)    //Row pointer, j is the row number
 //for i = i+ 1  or i = i + 3
 //  *a++ =      or *a++, *a++, *a++  (colour)
-
+// another example fo accessing Bayer raw image
+for (int j=0; j<H; j++)
+    for (int i=0; i<W; i++){
+        if (j%2==0){
+            if (i%2==0)
+                img_bayer.at<Vec3b>(j,i)=Green;
+            else 
+                img_bayer.at<Vec3b>(j,i)=Red; 
+        }
+        else{
+            if (i%2==0)
+                img_bayer.at<Vec3b>(j,i)=Blue;
+            else
+                img_bayer.at<Vec3b>(j,i)=Green;                
+        }            
+    }
 //=== Region of Interest ====
 Rect roi=Rect(x,y,len_x,len_y);
 
