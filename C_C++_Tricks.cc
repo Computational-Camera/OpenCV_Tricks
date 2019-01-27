@@ -19,3 +19,6 @@ uint64_t delta_us = (end.tv_nsec - start.tv_nsec) / 1000;
 srand((unsigned)time(NULL));
 float jitter = float(rand()%100)/100 -0.5 ; //RAND_MAX is a constant defined in <cstdlib>. -0.5 to 0.5
 
+//=====3D array declearation
+
+
