@@ -1,0 +1,12 @@
+MatND hist
+
+Histogram1D h
+
+h.getHistogram(imageROI)
+normalize(hist, hist,1,0)
+
+
+threshold
+minMaxLoc
+
+convertTo
