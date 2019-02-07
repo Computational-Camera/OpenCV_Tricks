@@ -10,3 +10,25 @@ threshold
 minMaxLoc
 
 convertTo
+
+GaussianBlur(in, out, kernel_size, sigma)
+MedianBlur(in, out, kernel_size)
+Sobel(in, out, type, ...)// 1,0 ; 0, 1
+Scharr
+Laplacian
+
+cornerHarris(image, cornerstrength, neighbourhood, apeture, k)
+
+====Windows Installation====
+=======Phase 1=======
+install visual studio
+install cmake
+download source code
+use cmake to configure and generate visual studio project
+compile to generate either static lib (.lib) or shared lib (.dll and .lib)
+
+=======Phase 2=======
+New a project in visual studio
+Configure C/C++ include directory
+Configure Linker library path and library name
+
