@@ -40,8 +40,17 @@ imwrite("test.jpg", image);
 //load videos
 VideoCapture cap(INPUT_VIDEO_PATH);
 Mat cur;
+
+int frame_width  = cap.get(CAP_PROP_FRAME_WIDTH); 
+int frame_height = cap.get(CAP_PROP_FRAME_HEIGHT); 
+int frame_length = cap.get(CAP_PROP_FRAME_COUNT); 
+
+int frame_cnt = 0
 for (;;){
   cap >> cur;
+  frame_cnt++;
+  if (frame_cnt==frame_length)
+    break;
 }
 //write vidoes
 VideoWriter outputVideo;  //output
