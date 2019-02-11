@@ -36,6 +36,9 @@ image = 0.5* imag1 + 0.5*image2
 vector<Mat> rgb;
 split(frame, rgb); // result rgb[0]   rgb[1] rgb[2]
 
+//=== Merge Image=======
+merge(rgb,frame);
+
 //==== Color Converstion ====
 cvtColor(img, img_colour, COLOR_BayerRG2BGR);
 cvtColor(img, img_gray,    COLOR_BGR2GRAY);
