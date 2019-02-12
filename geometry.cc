@@ -19,3 +19,6 @@ findHomography( src_pt, dst_pt, RANSAC );
 
 //=== Perspective matrix estimation ====
 getPerspectiveTransform(const Point2f src[], const Point2f dst[])
+  
+//===Resize===
+resize(src, dst, dst.size(), 0, 0, interpolation);
