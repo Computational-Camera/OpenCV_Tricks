@@ -22,7 +22,7 @@ or cout<<" type "<<image.type()<<endl;
 image.channels()
 image.cols
 image.rows
-image.??? (type)
+image.total()
 
 //=== Load image ===========
 Mat img = imread(filedir,flag);
