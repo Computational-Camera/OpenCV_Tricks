@@ -22,3 +22,7 @@ float jitter = float(rand()%100)/100 -0.5 ; //RAND_MAX is a constant defined in 
 //=====3D array declearation
 
 
+//====new array with zeros
+new float[10]();
+
+
