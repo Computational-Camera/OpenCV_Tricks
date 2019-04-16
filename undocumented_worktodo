@@ -1,3 +1,6 @@
+//multi processor parallel
+#pragma omp parallel for
+
 MatND hist
 
 Histogram1D h
