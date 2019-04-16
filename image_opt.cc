@@ -57,5 +57,5 @@ integral( src,  dst,  CV_32SC3);
 Point min_loc, max_loc;
 minMaxLoc(your_mat, &min, &max, &min_loc, &max_loc);
 
-//=== normalize ===
+//=== normalize === ???
 normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
