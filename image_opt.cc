@@ -53,3 +53,9 @@ dst=src.reshape(w2,h2);//w2h2=w1*h1
 //=== Integral ==============
 integral( src,  dst,  CV_32SC3);
 
+//==== min max====
+Point min_loc, max_loc;
+minMaxLoc(your_mat, &min, &max, &min_loc, &max_loc);
+
+//=== normalize ===
+normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
