@@ -6,15 +6,6 @@ MatND hist
 Histogram1D h
 
 h.getHistogram(imageROI)
-normalize(hist, hist,1,0)
-
-
-threshold
-
-double min, max; 
-minMaxLoc(im, &min, &max);//Mat im
-
-convertTo
 
 GaussianBlur(in, out, kernel_size, sigma)
 MedianBlur(in, out, kernel_size)
@@ -36,4 +27,15 @@ compile to generate either static lib (.lib) or shared lib (.dll and .lib)
 New a project in visual studio
 Configure C/C++ include directory
 Configure Linker library path and library name
+
+--------------------------Windows Detail-------------------------
+in cmake-gui
+modify extra directory to xxx\module and click any module that are highlighted in red
+
+copy opencv/build/lib/Debug/*.lib   to C:program Files/OpenCV/build/lib/Debug/
+copy opencv/build/includ/*          to C:program Files/OpenCV/build/include/
+copy opencv/build/bin/Debug/*.dll to your project location  where executable fie can be found.
+
+For extra module you need copy
+opencv-contrib-master/modules/optflow/include/opencv2/
 
