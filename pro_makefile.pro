@@ -22,7 +22,7 @@ INCLUDEPATH +=  /usr/local/include/ceres/
 -lglog -lgflags -lceres -lcxsparse -lcholmod -lblas -llapack
 
 #example  opengl
--lGLU -lGL -lglut -lglfw3 -lX11 -ldl
+-lGLU -lGL -lglut -lGLEW  -lglfw3 -lX11 -ldl -lpangolin 
 
 #example opencv
 INCLUDEPATH +=  /usr/local/include/opencv4/
