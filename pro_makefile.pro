@@ -33,3 +33,6 @@ INCLUDEPATH +=  /usr/local/include/opencv4/
 #example  realsence
 INCLUDEPATH +=  /xxx/lib/librealsense/third-party/
 LIBS += /xxx/lib/librealsense/build/librealsense2.so
+
+#example halide
+LIBS += -lpthread -ldl -lHalide
