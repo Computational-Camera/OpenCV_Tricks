@@ -5,6 +5,9 @@ QMAKE_CXXFLAGS += -O3 -march=native  -std=c++11 -m64 -ffast-math -Waggressive-lo
 INCLUDEPATH +=  /usr/local/include/eigen3/
 INCLUDEPATH +=  /usr/local/include/opencv4/
 
+#add library search path
+LIBS += -L//usr/local/lib
+
 #include library besides system default directory
 #direct way or use -L/dir and add -lxx flag
 LIBS += ./xxx/lib/libcaffe2.so
