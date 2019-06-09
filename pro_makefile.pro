@@ -21,15 +21,14 @@ LIBS += -lcudnn -lcuda -lcudart -lcublas -lcurand -lcusolver
 #example  ceres
 INCLUDEPATH +=  /usr/local/include/eigen3/
 INCLUDEPATH +=  /usr/local/include/ceres/
-
--lglog -lgflags -lceres -lcxsparse -lcholmod -lblas -llapack
+LIBS += -lglog -lgflags -lceres -lcxsparse -lcholmod -lblas -llapack
 
 #example  opengl
--lGLU -lGL -lglut -lGLEW  -lglfw3 -lX11 -ldl -lpangolin 
+LIBS += -lGLU -lGL -lglut -lGLEW  -lglfw3 -lX11 -ldl -lpangolin 
 
 #example opencv
 INCLUDEPATH +=  /usr/local/include/opencv4/
--lopencv_ccalib -lopencv_datasets -lopencv_freetype  -lopencv_calib3d -lopencv_features2d 
+LIBS +=-lopencv_ccalib -lopencv_datasets -lopencv_freetype  -lopencv_calib3d -lopencv_features2d 
 -lopencv_flann  -lopencv_videoio -lopencv_imgcodecs -lopencv_photo -lopencv_imgproc 
 -lopencv_core -lopencv_dnn -lopencv_highgui -lopencv_cudaimgproc -lopencv_tracking
 
@@ -39,3 +38,6 @@ LIBS += /xxx/lib/librealsense/build/librealsense2.so
 
 #example halide
 LIBS += -lpthread -ldl -lHalide
+
+#others
+LIBS +=-lpng -ljpeg -lpthread
