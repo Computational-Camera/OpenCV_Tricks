@@ -26,6 +26,9 @@ LIBS += -lglog -lgflags -lceres -lcxsparse -lcholmod -lblas -llapack
 #example  opengl
 LIBS += -lGLU -lGL -lglut -lGLEW  -lglfw3 -lX11 -ldl -lpangolin 
 
+#FFTW3
+LIBS += -lfftw3
+
 #example opencv
 INCLUDEPATH +=  /usr/local/include/opencv4/
 LIBS +=-lopencv_ccalib -lopencv_datasets -lopencv_freetype  -lopencv_calib3d -lopencv_features2d 
