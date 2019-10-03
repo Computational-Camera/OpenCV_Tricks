@@ -54,6 +54,7 @@ dst=src.reshape(w2,h2);//w2h2=w1*h1
 integral( src,  dst,  CV_32SC3);
 
 //==== min max====
+double min, max;
 Point min_loc, max_loc;
 minMaxLoc(your_mat, &min, &max, &min_loc, &max_loc);
 
