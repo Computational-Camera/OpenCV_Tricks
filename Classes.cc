@@ -10,7 +10,7 @@ Vec3f(x0,x1,x2) //vector
 
 fastMalloc();//loate memory aligned go a 16 byte boundary
 
-setUseOptimized(1);//set 1 to enable
+setUseOptimized(1);//The function can be used to dynamically turn on and off optimized dispatched code
 flag = useOptimized();//return 1 means optmized
 
 
