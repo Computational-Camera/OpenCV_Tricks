@@ -33,3 +33,6 @@
       	Mat temp = Mat::zeros(im11c.rows, im11c.cols, CV_8U);
       	Rect ROI = Rect(48,48, im11c.cols-96, im11c.rows-96);
       	filtered_disp(ROI).copyTo(temp(ROI));
+
+ 	// Apply the colormap:
+        applyColorMap(img0, cm_img0, COLORMAP_BONE);//COLORMAP_JET
