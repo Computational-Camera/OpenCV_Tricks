@@ -6,7 +6,7 @@ r.tl()
 r.br()
 
 Matx33f m; //3 by 3 matrix
-Vec3f(x0,x1,x2) //vector
+Vec3f(x0,x1,x2) //vector, Vec6f...
 
 fastMalloc();//loate memory aligned go a 16 byte boundary
 
