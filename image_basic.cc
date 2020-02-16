@@ -15,7 +15,7 @@ Vec3d double
 
 //=== New a image ==========
 Mat image;
-Mat image(320,320, CV_U3C);#H, W
+Mat image(320,320, CV_U3C);#H, W or Size(W, H) note the difference
 cout<<" depth "<<image.depth()<<"channels "<<image.channels()<<endl;
 or cout<<" type "<<image.type()<<endl;
 //=== Image information ====
