@@ -44,3 +44,6 @@ LIBS += -lpthread -ldl -lHalide
 
 #others
 LIBS +=-lpng -ljpeg -lpthread
+
+#add defines
+DEFINES += "__OPENCV_BUILD=1"
