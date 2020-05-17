@@ -47,3 +47,6 @@ LIBS +=-lpng -ljpeg -lpthread
 
 #add defines
 DEFINES += "__OPENCV_BUILD=1"
+
+#compile large project which has multipile objective files
+CONFIG    += object_parallel_to_source
