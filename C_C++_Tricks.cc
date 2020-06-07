@@ -25,4 +25,8 @@ float jitter = float(rand()%100)/100 -0.5 ; //RAND_MAX is a constant defined in 
 //====new array with zeros
 new float[10]();
 
-
+//====output to console or file
+ostringstream file_name;
+freopen((file_name.str()).c_str(), "a", stderr);//a: append, w: new and write
+fprintf(stdout, "hello\n");
+fprintf(stderr, "hello\n");
