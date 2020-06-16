@@ -5,6 +5,8 @@ Matrix<float,3,3> a;//  Matrix3f
 MatrixXd a(3,3);
 Matrix<float,4,1> b;//  Vector4f
 
+cout<<a.rows()<<" "<<a.cols()<<endl;
+
 //construction 
 b<<1, 2, 3, 4;
 A = Matrix3f :: Random () ;
