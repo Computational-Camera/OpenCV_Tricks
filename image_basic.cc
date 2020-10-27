@@ -52,8 +52,8 @@ int frame_length = cap.get(CAP_PROP_FRAME_COUNT);
 //write vidoes
 VideoWriter outputVideo;  //output
 Size S = Size(W,H);
-int ex = CV_FOURCC('X','V','I','D' );//static_cast<int>(cap.get(CV_CAP_PROP_FOURCC)); 'M','J','P','G' 
-outputVideo.open("test.avi", ex, cap.get(CV_CAP_PROP_FPS), S, true);
+int ex = VideoWriter::fourcc('H','2','6','4');//static_cast<int>(cap.get(CV_CAP_PROP_FOURCC)); 'M','J','P','G' 
+outputVideo.open("test.avi", ex, cap.get(CAP_PROP_FPS), S, true);
 
 //====Access Mat Efficiently======
 uchar*  img_ptr_temp = img.ptr<uchar>(line_num) + offset;
