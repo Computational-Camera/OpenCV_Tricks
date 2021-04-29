@@ -14,7 +14,7 @@ for( int j= 0; j < (DOT_H-1); ++j )
     objectPoints.push_back(Point3f((i+1)*LCD_DOT_W, (j+1)*LCD_DOT_H, 0));
 objectPoints_vec.push_back(objectPoints);		
 
-//pratical points
+//practical points
 find= findChessboardCorners(ref, patternSize, imagePoints, CALIB_CB_ADAPTIVE_THRESH |CALIB_CB_FILTER_QUADS);
 
 vector<Mat> rvecs, tvecs;  // store errors vectors
