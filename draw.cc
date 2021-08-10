@@ -15,6 +15,8 @@ polylines(  src, ppt, npt,
           Scalar( r, g, b ),
           2);     //lineType=8
 }
+//===color map===
+applyColorMap(src, draw, COLORMAP_JET);
 
 //===Text===
 putText(img, str, imagePoint, FONT_HERSHEY_PLAIN, 2,  Scalar(0,0,255,255), 2);
@@ -23,3 +25,6 @@ putText(img, str, imagePoint, FONT_HERSHEY_PLAIN, 2,  Scalar(0,0,255,255), 2);
 namedWindow( "display_window", WINDOW_AUTOSIZE );
 imshow( "display_window", src);
 waitKey();// display window stay until key pressed
+
+
+
