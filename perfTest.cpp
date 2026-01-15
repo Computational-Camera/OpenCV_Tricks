@@ -1,53 +1,88 @@
+/*
+For Orin Nano 
+lscpu | grep "On-line CPU(s)"
+cat /sys/kernel/debug/bpmp/debug/clk/emc/rate
+sudo nvpmodel -m 8
+sudo jetson_clocks
+
+Compile 
+g++ -O3 -march=native memtest2.cpp -o memtest2 -lpthread
+*/
+
+
 #include <iostream>
 #include <vector>
-#include <cstring> // for memcpy
-#include <chrono>  // for high_resolution_clock
-#include <iomanip> // for setprecision
+#include <cstring>
+#include <chrono>
+#include <iomanip>
+#include <thread>
+#include <atomic>
+#include <algorithm>
+#include <sched.h>
 
-// Define memory block size: 512 MB
-// We use a large size to ensure we bypass the CPU L3 Cache (which is only ~3MB on RK3588)
-// Add 'LL' to force 64-bit calculation
-const long long DATA_SIZE = 1LL * 512 * 1024 * 1024; //modify 1LL if prefer larger chunk of memory
-int main() 
-    std::cout << "Allocating " << (DATA_SIZE / 1024 / 1024) << " MB of memory..." << std::endl;
+// Increase size to 1GB to ensure we stay out of the shared L3 cache across 6 cores
+const long long TOTAL_DATA_SIZE = 1024LL * 1024LL * 1024LL; 
+const int NUM_THREADS = 6; // Orin Nano has 6 cores
+const int ITERATIONS = 20;
 
-    // Allocate Source and Destination buffers
-    // Using generic vectors for automatic memory management
-    std::vector<char> src(DATA_SIZE, 1);
-    std::vector<char> dst(DATA_SIZE);
+std::atomic<bool> start_flag(false);
 
-    std::cout << "Warming up..." << std::endl;
-    // Run once to trigger page faults and warm up the system
-    std::memcpy(dst.data(), src.data(), DATA_SIZE);
+void benchmark_thread(int thread_id, char* src, char* dst, long long size, double& thread_time) {
+    // 1. PIN THREAD TO CORE
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(thread_id, &cpuset);
+    sched_setaffinity(0, sizeof(cpu_set_t), &cpuset);
 
-    std::cout << "Starting Benchmark..." << std::endl;
+    // Warm-up
+    std::memcpy(dst, src, size);
 
-    // Measure time
+    // Synchronize start
+    while (!start_flag) { std::this_thread::yield(); }
+
     auto start = std::chrono::high_resolution_clock::now();
-    
-    // Perform the copy
-    // We loop 10 times to get a stable average
-    int iterations = 10;
-    for(int i = 0; i < iterations; i++) {
-        std::memcpy(dst.data(), src.data(), DATA_SIZE);
-        // Prevent compiler optimization skipping the loop
-        if(dst[0] == 0) std::cout << "Error"; 
+    for (int i = 0; i < ITERATIONS; i++) {
+        std::memcpy(dst, src, size);
+        // Prevent compiler optimization
+        asm volatile("" : : "g"(dst) : "memory");
     }
-
     auto end = std::chrono::high_resolution_clock::now();
 
-    // Calculate duration in seconds
     std::chrono::duration<double> elapsed = end - start;
-    double total_seconds = elapsed.count();
+    thread_time = elapsed.count();
+}
 
-    // Calculate Total Data Moved (Read + Write)
-    // Note: memcpy reads SRC and writes DST, so total bus traffic is 2x size
-    double total_bytes = (double)DATA_SIZE * iterations * 2; 
-    double bandwidth_gbs = (total_bytes / total_seconds) / (1024 * 1024 * 1024);
+int main() {
+    std::cout << "Starting Multi-threaded Benchmark on " << NUM_THREADS << " cores..." << std::endl;
+
+    long long size_per_thread = TOTAL_DATA_SIZE / NUM_THREADS;
+    std::vector<std::vector<char>> src_bufs(NUM_THREADS, std::vector<char>(size_per_thread, 1));
+    std::vector<std::vector<char>> dst_bufs(NUM_THREADS, std::vector<char>(size_per_thread));
+    std::vector<double> thread_times(NUM_THREADS, 0.0);
+    std::vector<std::thread> threads;
+
+    // Launch threads
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threads.emplace_back(benchmark_thread, i, src_bufs[i].data(), dst_bufs[i].data(), size_per_thread, std::ref(thread_times[i]));
+    }
+
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Let threads settle
+    std::cout << "All threads ready. Executing..." << std::endl;
+    
+    start_flag = true; // Release the hounds
+
+    for (auto& t : threads) { t.join(); }
+
+    // Use the maximum time taken by any thread as the duration for aggregate calculation
+    double max_time = *std::max_element(thread_times.begin(), thread_times.end());
+    
+    // Traffic = Size * Iterations * 2 (Read + Write)
+    double total_bytes = (double)TOTAL_DATA_SIZE * ITERATIONS * 2;
+    double bandwidth_gbs = (total_bytes / max_time) / (1024.0 * 1024.0 * 1024.0);
 
     std::cout << "------------------------------------------------" << std::endl;
-    std::cout << "Total Time: " << total_seconds << " s" << std::endl;
-    std::cout << "Effective Bandwidth: " << std::fixed << std::setprecision(2) << bandwidth_gbs << " GB/s" << std::endl;
+    std::cout << "Aggregate Bandwidth: " << std::fixed << std::setprecision(2) << bandwidth_gbs << " GiB/s" << std::endl;
+    std::cout << "Estimated Decimal:   " << bandwidth_gbs * 1.074 << " GB/s" << std::endl;
     std::cout << "------------------------------------------------" << std::endl;
 
     return 0;
